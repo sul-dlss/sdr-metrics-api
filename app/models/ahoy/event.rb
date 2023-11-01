@@ -1,9 +1,14 @@
-class Ahoy::Event < ApplicationRecord
-  include Ahoy::QueryMethods
+# frozen_string_literal: true
 
-  self.table_name = "ahoy_events"
+module Ahoy
+  # A single event triggered by a client, like a view or download
+  class Event < ApplicationRecord
+    include Ahoy::QueryMethods
 
-  belongs_to :visit
+    self.table_name = 'ahoy_events'
 
-  serialize :properties, coder: JSON
+    belongs_to :visit
+
+    serialize :properties, coder: JSON
+  end
 end
