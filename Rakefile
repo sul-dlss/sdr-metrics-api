@@ -7,4 +7,4 @@ require_relative 'config/application'
 
 Rails.application.load_tasks
 
-task default: %i[test rubocop]
+task default: %i[rubocop spec]
