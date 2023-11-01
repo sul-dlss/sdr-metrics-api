@@ -25,10 +25,17 @@ bin/rails server
 
 ## Testing
 
-Run the test suite:
+Code is linted with [Rubocop](https://rubocop.org/) and tested on each push to GitHub. You can run everything locally with:
 
 ```bash
-bin/rails test
+bin/rake
+```
+
+For just the linter, or just the tests:
+
+```bash
+bin/rake rubocop
+bin/rake test
 ```
 
 ## Deploying
