@@ -46,3 +46,5 @@ group :development do
 
 end
 
+# API and models for first-party analytics tracking [https://github.com/ankane/ahoy]
+gem "ahoy_matey", "~> 5.0"

@@ -74,6 +74,10 @@ GEM
       minitest (>= 5.1)
       mutex_m
       tzinfo (~> 2.0)
+    ahoy_matey (5.0.2)
+      activesupport (>= 6.1)
+      device_detector (>= 1)
+      safely_block (>= 0.4)
     base64 (0.1.1)
     bigdecimal (3.1.4)
     bootsnap (1.17.0)
@@ -86,6 +90,7 @@ GEM
     debug (1.8.0)
       irb (>= 1.5.0)
       reline (>= 0.3.1)
+    device_detector (1.1.1)
     drb (2.1.1)
       ruby2_keywords
     erubi (1.12.0)
@@ -172,6 +177,7 @@ GEM
     reline (0.3.9)
       io-console (~> 0.5)
     ruby2_keywords (0.0.5)
+    safely_block (0.4.0)
     sqlite3 (1.6.7-x86_64-darwin)
     sqlite3 (1.6.7-x86_64-linux)
     stringio (3.0.8)
@@ -190,6 +196,7 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  ahoy_matey (~> 5.0)
   bootsnap
   debug
   puma (>= 5.0)
