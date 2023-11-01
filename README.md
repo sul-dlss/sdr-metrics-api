@@ -1,21 +1,36 @@
-# metrics
+# Metrics
 
 An API for tracking and querying usage metrics for Stanford SDR objects.
 
-* Ruby version
+## Requirements
 
-* System dependencies
+- Ruby 3.2
+- A database (SQLite locally, Postgres in production)
 
-* Configuration
+## Setup
 
-* Database creation
+Run the rails setup script to install dependencies and set up the database:
 
-* Database initialization
+```bash
+bin/setup
+```
 
-* How to run the test suite
+## Developing
 
-* Services (job queues, cache servers, search engines, etc.)
+Start a development server:
 
-* Deployment instructions
+```bash
+bin/rails server
+```
 
-* ...
+## Testing
+
+Run the test suite:
+
+```bash
+bin/rails test
+```
+
+## Deploying
+
+> TODO
