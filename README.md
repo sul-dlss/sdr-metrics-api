@@ -87,4 +87,13 @@ bin/rake spec
 
 ## Deploying
 
-> TODO
+The application is deployed automatically by Jenkins (sul-ci).
+
+Merging to `main` will trigger a staging deploy, and creating a github release with a `v` tag will trigger a production deploy.
+
+To deploy manually, you can use capistrano:
+
+```bash
+cap stage deploy
+cap prod deploy
+```
