@@ -4,11 +4,11 @@ require 'rails_helper'
 
 RSpec.describe 'metrics request' do
   let(:druid) { 'bb051dp0564' }
-  let(:visit) { Ahoy::Visit.create(started_at: Time.zone.now) }
+  let(:visit) { create(:ahoy_visit) }
 
   before do
-    5.times { Ahoy::Event.create(visit:, name: '$view', properties: { druid: }) }
-    2.times { Ahoy::Event.create(visit:, name: 'download', properties: { druid: }) }
+    create_list(:ahoy_event, 5, :view, visit:)
+    create_list(:ahoy_event, 2, :download, visit:)
   end
 
   it 'returns metrics for a given druid' do
