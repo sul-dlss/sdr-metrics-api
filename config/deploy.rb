@@ -14,7 +14,7 @@ end
 set :deploy_to, '/opt/app/metrics/sdr-metrics-api'
 
 # Default value for :linked_files is []
-set :linked_files, %w(config/database.yml public/robots.txt)
+set :linked_files, %w(config/database.yml)
 
 # Default value for linked_dirs is []
 set :linked_dirs, %w(config/settings log tmp/pids tmp/cache tmp/sockets vendor/bundle)
