@@ -1,4 +1,4 @@
-# Metrics
+# SDR Metrics API
 
 An API for tracking and querying usage metrics for Stanford SDR objects.
 
