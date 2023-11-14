@@ -27,6 +27,9 @@ gem "rack-cors"
 # API and models for first-party analytics tracking [https://github.com/ankane/ahoy]
 gem "ahoy_matey", "~> 5.0"
 
+# Production database is postgres
+gem "pg", "~> 1.5"
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ]
