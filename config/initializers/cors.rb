@@ -5,6 +5,9 @@
 
 # Read more: https://github.com/cyu/rack-cors
 
+# Note that this is handled by puppet in deployed environments – this configuration
+# only affects local development.
+
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
     origins "/stanford.edu\z"
