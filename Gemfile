@@ -30,6 +30,9 @@ gem "ahoy_matey", "~> 5.0"
 # Production database is postgres
 gem "pg", "~> 1.5"
 
+# Uptime monitoring & status checks [https://github.com/sportngin/okcomputer]
+gem "okcomputer", "~> 1.18"
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ]

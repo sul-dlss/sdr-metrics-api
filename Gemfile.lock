@@ -170,6 +170,7 @@ GEM
       racc (~> 1.4)
     nokogiri (1.15.4-x86_64-linux)
       racc (~> 1.4)
+    okcomputer (1.18.5)
     parallel (1.23.0)
     parser (3.2.2.4)
       ast (~> 2.4.1)
@@ -305,6 +306,7 @@ DEPENDENCIES
   dlss-capistrano (~> 4.4)
   factory_bot_rails
   pg (~> 1.5)
+  okcomputer (~> 1.18)
   puma (>= 5.0)
   rack-cors
   rails (~> 7.1.1)
