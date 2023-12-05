@@ -10,6 +10,10 @@ Ahoy.server_side_visits = :when_needed
 # mask IPs by setting the last octet to 0
 Ahoy.mask_ips = true
 
+# use anonymity sets instead of cookies: visitors with the same user agent
+# and masked IP are grouped together
+Ahoy.cookies = :none
+
 # enable event logging in development
 Ahoy.quiet = !Rails.env.development?
 
