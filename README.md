@@ -1,5 +1,7 @@
 # SDR Metrics API
 
+[![CI](https://github.com/sul-dlss/sdr-metrics-api/actions/workflows/ci.yml/badge.svg)](https://github.com/sul-dlss/sdr-metrics-api/actions/workflows/ci.yml)
+
 An API for tracking and querying usage metrics for Stanford SDR objects.
 
 ## Requirements
