@@ -31,7 +31,7 @@ Event tracking is done via [Ahoy](https://github.com/ankane/ahoy)'s built-in API
 
 Event submissions should include the DRUID of the object being tracked, which will be used to associate the event with the object. Other attributes can be included as needed.
 
-Each time an event is logged, it is associated with a visit, which identifies the device and user. If the cookie provided by the client does not match an existing visit or a configurable amount of time has elapsed, a new visit will be created.
+Each time an event is logged it is associated with a visit that identifies characteristics of the device being used, including its user agent and [masked IP address](https://github.com/ankane/ahoy?tab=readme-ov-file#ip-masking). Visits are created automatically by `ahoy.js`.
 
 #### Views
 
@@ -47,6 +47,12 @@ Downloads are tracked by creating an event with the type `download`:
 
 ```javascript
 ahoy.track("download", { druid: "py305sy7961" });
+```
+
+You can also specify a particular file being downloaded:
+
+```javascript
+ahoy.track("download", { druid: "py305sy7961", file: "file_1.pdf" });
 ```
 
 ### Querying metrics
@@ -68,7 +74,7 @@ The response is a single JSON object with total counts for each tracked event ty
 }
 ```
 
-Counts labeled "unique" are deduplicated by visit, so that multiple events coming from the same device in a short time period are only counted once.
+Counts labeled "unique" are deduplicated by visit, so that multiple events coming from the same device in a short time period are only counted once. This time period is configurable when initializing `ahoy.js`.
 
 ## Testing
 
@@ -97,3 +103,17 @@ To deploy manually, you can use capistrano:
 cap stage deploy
 cap prod deploy
 ```
+
+## Design
+
+*Why not use Google Analytics?*
+
+Google Analytics includes a lot of features that we don't need, especially around marketing and advertising. It also doesn't record events in a useful way when triggered from an embedded iframe like we do in sul-embed. The "enhanced measurement" feature in GA4 captures some events, but not all, so we'd need to do some work to manually trigger the ones we want. And of course, Google can change the API at any time, which would break our integration.
+
+*Why not use another hosted analytics service?*
+
+Keeping the analytics tracking first-party means we have control over the data and can ensure it's not shared with third parties, as well as make guarantees about anonymization and retention. We also don't have to worry about a third-party service going out of business or changing their pricing model.
+
+*Why not make metrics tracking a part of PURL?*
+
+We need a database in which to store tracked metrics, but PURL was designed as a static site that serves XML from the filesystem. Rather than adding this database to PURL, we decided to create a separate service that can be used by other applications as well.
