@@ -10,12 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_11_01_181445) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_14_215212) do
   create_table "ahoy_events", force: :cascade do |t|
     t.integer "visit_id"
     t.string "name"
     t.text "properties"
     t.datetime "time"
+    t.string "druid"
+    t.index ["druid"], name: "index_ahoy_events_on_druid"
     t.index ["name", "time"], name: "index_ahoy_events_on_name_and_time"
     t.index ["visit_id"], name: "index_ahoy_events_on_visit_id"
   end

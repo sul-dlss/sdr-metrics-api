@@ -14,10 +14,10 @@ class MetricsController < ApplicationController
   private
 
   def views
-    Ahoy::Event.where_event('$view', druid: params[:druid])
+    Ahoy::Event.where(name: '$view', druid: params[:druid])
   end
 
   def downloads
-    Ahoy::Event.where_event('download', druid: params[:druid])
+    Ahoy::Event.where(name: 'download', druid: params[:druid])
   end
 end

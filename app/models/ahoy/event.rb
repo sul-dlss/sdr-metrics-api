@@ -10,5 +10,7 @@ module Ahoy
     belongs_to :visit
 
     serialize :properties, coder: JSON
+
+    before_save { self.druid = properties['druid'] }
   end
 end
