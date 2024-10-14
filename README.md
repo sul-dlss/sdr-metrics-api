@@ -78,6 +78,26 @@ The response is a single JSON object with total counts for each tracked event ty
 
 Counts labeled "unique" are deduplicated by visit, so that multiple events coming from the same device in a short time period are only counted once. This time period is configurable when initializing `ahoy.js`.
 
+### Reports
+
+If you would like to generate a CSV that reports views and downloads by DRUID you can:
+
+```shell
+bin/rake "report:downloads_and_views
+```
+
+That will generate a report from 2024-01-01 to the present. If you want to get the stats from 2024-06-01 to present you can:
+
+```shell
+bin/rake "report:downloads_and_views[2024-06-01]"
+```
+
+And similarly if you just want the month of June 2024 you can:
+
+```shell
+bin/rake "report:downloads_and_views[2024-06-01,2024-06-30]"
+```
+
 ## Testing
 
 Code is linted with [Rubocop](https://rubocop.org/) and tested with [RSpec](https://rspec.info/) on each push to GitHub. You can run everything locally with:
