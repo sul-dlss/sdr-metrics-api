@@ -41,5 +41,29 @@ namespace :report do
       stats[event_type] = row['count']
     end
   end
+
+  desc 'Generate a unique event report'
+  task :unique_events, %i[start end] => :environment do |_, args|
+    args.with_defaults(start: '2024-01-01', end: DateTime.now.strftime)
+
+    # get view and download events that are unique per visit
+    # this corresponds to the statistics that are displayed in purl
+
+    sql = <<~SQL.squish
+      SELECT MIN(time) as visit_time, druid, name
+      FROM ahoy_events
+      WHERE time >= $1
+      AND time <= $2
+      GROUP BY druid, visit_id, name
+      ORDER BY visit_time
+    SQL
+
+    puts 'druid,visit_time,event_type'
+
+    ActiveRecord::Base.connection.exec_query(sql, 'downloads_and_views', [args.start, args.end]).each do |row|
+      event_type = row['name'] == '$view' ? 'view' : 'download'
+      puts "#{row['druid']},#{row['visit_time']},#{event_type}"
+    end
+  end
 end
 # rubocop:enable Metrics/BlockLength
