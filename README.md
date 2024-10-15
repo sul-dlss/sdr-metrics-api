@@ -80,13 +80,38 @@ Counts labeled "unique" are deduplicated by visit, so that multiple events comin
 
 ### Reports
 
-If you would like to generate a CSV that reports views and downloads by DRUID you can:
+If you would like to generate a CSV that reports views and downloads by DRUID you can run this rake task:
 
 ```shell
-bin/rake "report:downloads_and_views
+bin/rake "report:downloads_and_views"
 ```
 
-That will generate a report from 2024-01-01 to the present. If you want to get the stats from 2024-06-01 to present you can:
+This will generate a report from 2024-01-01 to the present that looks something like:
+
+```csv
+druid,view,download
+bb006pk2853,,27
+bb006ys3871,,20
+bb006zw9301,,8
+bb007hx5508,6,3
+bb007pj1304,2,32
+bb007sv8035,,15
+bb012zz3318,,5
+bb013fz9675,1,13
+bb013xp7425,,2
+bb014cm3716,1,4
+bb014gd5236,,10
+bb014rn2117,,3
+bb014sx3905,2,56
+bb014tx0752,,32
+bb014vg2844,,3
+bb015bx6683,,2
+bb015qq7587,16,29
+bb016nw8128,1,108
+...
+```
+
+If you want to get the stats from 2024-06-01 to present you can:
 
 ```shell
 bin/rake "report:downloads_and_views[2024-06-01]"
@@ -96,6 +121,37 @@ And similarly if you just want the month of June 2024 you can:
 
 ```shell
 bin/rake "report:downloads_and_views[2024-06-01,2024-06-30]"
+```
+
+There is also a time series report which can be useful for reporting on views and downloads by Ahoy "visit" over time:
+
+```shell
+bin/rake "report:unique_events"
+```
+
+```
+druid,visit_time,event_type
+tb980qz1002,2024-01-01 00:01:16 UTC,view
+hc289jh1728,2024-01-01 00:01:58 UTC,view
+jt056qh6680,2024-01-01 00:02:29 UTC,view
+pk433zv7418,2024-01-01 00:02:31 UTC,view
+pf238dv0503,2024-01-01 00:03:19 UTC,view
+bd687gc0646,2024-01-01 00:03:37 UTC,view
+nf382kk5351,2024-01-01 00:03:37 UTC,view
+vj127mj9564,2024-01-01 00:03:37 UTC,view
+...
+```
+
+or:
+
+```shell
+bin/rake "report:unique_events[2024-06-01]"
+```
+
+or:
+
+```shell
+bin/rake "report:unique_events[2024-06-01,2024-06-30]"
 ```
 
 ## Testing
