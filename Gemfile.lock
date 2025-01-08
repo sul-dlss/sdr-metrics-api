@@ -299,12 +299,12 @@ GEM
     ruby-progressbar (1.13.0)
     safely_block (0.4.1)
     securerandom (0.4.1)
-    sqlite3 (1.7.3-aarch64-linux)
-    sqlite3 (1.7.3-arm-linux)
-    sqlite3 (1.7.3-arm64-darwin)
-    sqlite3 (1.7.3-x86-linux)
-    sqlite3 (1.7.3-x86_64-darwin)
-    sqlite3 (1.7.3-x86_64-linux)
+    sqlite3 (2.5.0-aarch64-linux-gnu)
+    sqlite3 (2.5.0-arm-linux-gnu)
+    sqlite3 (2.5.0-arm64-darwin)
+    sqlite3 (2.5.0-x86-linux-gnu)
+    sqlite3 (2.5.0-x86_64-darwin)
+    sqlite3 (2.5.0-x86_64-linux-gnu)
     sshkit (1.23.2)
       base64
       net-scp (>= 1.1.2)
@@ -329,6 +329,7 @@ PLATFORMS
   aarch64-linux
   arm-linux
   arm64-darwin-23
+  arm64-darwin-24
   x86-linux
   x86_64-darwin
   x86_64-linux
@@ -353,7 +354,7 @@ DEPENDENCIES
   rubocop-rails
   rubocop-rspec
   rubocop-rspec_rails
-  sqlite3 (~> 1.4)
+  sqlite3 (~> 2.0)
   tzinfo-data
 
 BUNDLED WITH
