@@ -15,7 +15,7 @@ jobs:
         with:
           ruby-version: "3.4"
           bundler-cache: true
-      - run: bin/setup
+      - run: bundle install
       - run: bin/rake rubocop
 
   test:
@@ -26,5 +26,5 @@ jobs:
         with:
           ruby-version: "3.4"
           bundler-cache: true
-      - run: bin/setup
+      - run: bundle install
       - run: bin/rake spec
