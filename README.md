@@ -78,6 +78,8 @@ The response is a single JSON object with total counts for each tracked event ty
 
 Counts labeled "unique" are deduplicated by visit, so that multiple events coming from the same device in a short time period are only counted once. This time period is configurable when initializing `ahoy.js`.
 
+Note that the metrics display in PURL uses only the unique view and download counts, labelling these just "views" and "downloads". Non-unique totals are not used in the UI.
+
 ### Reports
 
 If you would like to generate a CSV that reports views and downloads by DRUID you can run this rake task:
@@ -89,7 +91,7 @@ bin/rake "report:downloads_and_views"
 This will generate a report from 2024-01-01 to the present that looks something like:
 
 ```csv
-druid,view,download
+druid,view_count,download_count
 bb006pk2853,,27
 bb006ys3871,,20
 bb006zw9301,,8
@@ -129,16 +131,16 @@ There is also a time series report which can be useful for reporting on views an
 bin/rake "report:unique_events"
 ```
 
+This report includes the (anonymized) IP of the visitor and looks something like:
+
 ```
-druid,visit_time,event_type
-tb980qz1002,2024-01-01 00:01:16 UTC,view
-hc289jh1728,2024-01-01 00:01:58 UTC,view
-jt056qh6680,2024-01-01 00:02:29 UTC,view
-pk433zv7418,2024-01-01 00:02:31 UTC,view
-pf238dv0503,2024-01-01 00:03:19 UTC,view
-bd687gc0646,2024-01-01 00:03:37 UTC,view
-nf382kk5351,2024-01-01 00:03:37 UTC,view
-vj127mj9564,2024-01-01 00:03:37 UTC,view
+visit_time,druid,anonymized_ip,event_type
+qb933xv2993,2024-01-06 00:15:00 UTC,10.130.18.0,view
+qb933xv2993,2024-01-06 01:09:30 UTC,10.130.18.0,view
+pf759xf5671,2024-01-06 01:12:46 UTC,10.130.18.0,view
+qc898xy1175,2024-01-06 01:12:48 UTC,10.130.18.0,view
+yh788wh7909,2024-01-08 01:57:20 UTC,10.130.10.0,view
+pw790hw4975,2024-01-08 15:11:35 UTC,10.130.146.0,view
 ...
 ```
 
@@ -152,6 +154,12 @@ or:
 
 ```shell
 bin/rake "report:unique_events[2024-06-01,2024-06-30]"
+```
+
+Both commands support filtering to a list of druids by setting the `DRUIDS` environment variable to a comma-separated list of druids, e.g.:
+
+```shell
+DRUIDS="bb006pk2853,bb006ys3871" bin/rake "report:downloads_and_views"
 ```
 
 ## Testing
