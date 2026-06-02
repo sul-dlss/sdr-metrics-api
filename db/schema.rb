@@ -10,35 +10,35 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_01_21_155261) do
+ActiveRecord::Schema[8.1].define(version: 2025_01_21_155261) do
   create_table "ahoy_events", force: :cascade do |t|
-    t.integer "visit_id"
+    t.string "druid"
     t.string "name"
     t.text "properties"
     t.datetime "time"
-    t.string "druid"
+    t.integer "visit_id"
     t.index ["druid"], name: "index_ahoy_events_on_druid"
     t.index ["name", "time"], name: "index_ahoy_events_on_name_and_time"
     t.index ["visit_id"], name: "index_ahoy_events_on_visit_id"
   end
 
   create_table "ahoy_visits", force: :cascade do |t|
-    t.string "visit_token"
-    t.string "visitor_token"
-    t.string "ip"
-    t.text "user_agent"
-    t.text "referrer"
-    t.string "referring_domain"
-    t.text "landing_page"
     t.string "browser"
-    t.string "os"
-    t.string "device_type"
-    t.string "country"
-    t.string "region"
     t.string "city"
+    t.string "country"
+    t.string "device_type"
+    t.string "ip"
+    t.text "landing_page"
     t.float "latitude"
     t.float "longitude"
+    t.string "os"
+    t.text "referrer"
+    t.string "referring_domain"
+    t.string "region"
     t.datetime "started_at"
+    t.text "user_agent"
+    t.string "visit_token"
+    t.string "visitor_token"
     t.index ["visit_token"], name: "index_ahoy_visits_on_visit_token", unique: true
     t.index ["visitor_token", "started_at"], name: "index_ahoy_visits_on_visitor_token_and_started_at"
   end
