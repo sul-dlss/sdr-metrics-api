@@ -1,5 +1,23 @@
 # frozen_string_literal: true
 
+# Helper function to get a list of druids from stdin or a file
+def druid_list
+  if ENV['DRUIDS'].present?
+    ENV['DRUIDS'].split(',').map(&:strip).reject(&:empty?)
+  elsif ENV['DRUIDS_FILE'].present?
+    File.readlines(ENV['DRUIDS_FILE']).map(&:strip).reject(&:empty?)
+  else
+    []
+  end
+end
+
+# Helper function to generate SQL query to limit to provided druid list
+def druid_filter
+  return '' if druid_list.empty?
+
+  "AND druid IN (#{druid_list.map { |d| ActiveRecord::Base.connection.quote(d.strip) }.join(', ')})"
+end
+
 # rubocop:disable Metrics/BlockLength
 namespace :report do
   desc 'Generate a download/view count report'
@@ -9,13 +27,6 @@ namespace :report do
     # get view and download counts by druid, but only count them once per visit
     # e.g. if a user visits a druid five times in what ahoy considers a unique visit
     # it will only be counted once. this matches the counts you see in purl.
-
-    # support filtering by druids if provided
-    druid_filter = if ENV['DRUIDS'].present?
-                     "AND druid IN (#{ENV['DRUIDS'].split(',').map do |d|
-                       ActiveRecord::Base.connection.quote(d.strip)
-                     end.join(', ')})"
-                   end
 
     sql = <<~SQL.squish
       SELECT druid, name, COUNT(*) AS count
@@ -60,13 +71,6 @@ namespace :report do
     # get each event for a druid, but only count them once per visit/event type
     # e.g. if a user views a druid twice and then downloads it, list the
     # first view and the download. this matches the counts you see in purl.
-
-    # support filtering by druids if provided
-    druid_filter = if ENV['DRUIDS'].present?
-                     "AND druid IN (#{ENV['DRUIDS'].split(',').map do |d|
-                       ActiveRecord::Base.connection.quote(d.strip)
-                     end.join(', ')})"
-                   end
 
     sql = <<~SQL.squish
       SELECT MIN(time) as visit_time, druid, name, visit.ip
