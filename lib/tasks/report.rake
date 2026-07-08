@@ -44,24 +44,21 @@ namespace :report do
 
     puts 'druid,view_count,download_count'
 
-    last_druid = nil
-    stats = { view: 0, download: 0 }
+    # accumulate view and download stats by druid
+    stats = Hash.new { |hash, key| hash[key] = { view: 0, download: 0 } }
 
     ActiveRecord::Base.connection.exec_query(sql, 'downloads_and_views', [args.start, args.end]).each do |row|
-      # accumulate view and download stats by druid on a single row
-      if last_druid && row['druid'] != last_druid
-        puts "#{last_druid},#{stats['view']},#{stats['download']}"
-        stats = { view: 0, download: 0 }
-        last_druid = row['druid']
-      end
-
-      last_druid = row['druid']
-      event_type = row['name'] == '$view' ? 'view' : 'download'
-      stats[event_type] = row['count']
+      event_type = row['name'] == '$view' ? :view : :download
+      stats[row['druid']][event_type] = row['count']
     end
 
-    # output the final druid
-    puts "#{last_druid},#{stats['view']},#{stats['download']}" if last_druid
+    # when a druid list is provided, include every druid in the output even if
+    # it had no views or downloads; otherwise report only the druids with events
+    druids = druid_list.presence || stats.keys
+
+    druids.sort.each do |druid|
+      puts "#{druid},#{stats[druid][:view]},#{stats[druid][:download]}"
+    end
   end
 
   desc 'Generate a unique event report'
