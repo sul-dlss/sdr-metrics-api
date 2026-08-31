@@ -18,7 +18,7 @@ def druid_filter
   "AND druid IN (#{druid_list.map { |d| ActiveRecord::Base.connection.quote(d.strip) }.join(', ')})"
 end
 
-# rubocop:disable Metrics/BlockLength
+# rubocop:disable-next Metrics/BlockLength
 namespace :report do
   desc 'Generate a download/view count report'
   task :downloads_and_views, %i[start end] => :environment do |_, args|
@@ -88,4 +88,3 @@ namespace :report do
     end
   end
 end
-# rubocop:enable Metrics/BlockLength
