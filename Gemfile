@@ -51,3 +51,6 @@ group :deployment do
   gem "capistrano-rails", "~> 1.6"
   gem "dlss-capistrano", "~> 6"
 end
+
+# See https://github.com/rails/rails/issues/58685
+gem 'json', '< 3'
