@@ -364,6 +364,7 @@ DEPENDENCIES
   debug
   dlss-capistrano (~> 6)
   factory_bot_rails
+  json (< 3)
   okcomputer (~> 1.18)
   pg (~> 1.5)
   puma (>= 5.0)
